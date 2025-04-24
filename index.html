@@ -1,50 +1,18 @@
 <!DOCTYPE html>
 <html lang="ru">
-  <head>
-    <meta charset="UTF-8" />
-    <title>VK Messages Consent</title>
-    <script src="https://unpkg.com/@vkontakte/vk-bridge/dist/browser.min.js"></script>
-    <style>
-      body {
-        font-family: sans-serif;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        margin-top: 50px;
-      }
-      button {
-        padding: 10px 20px;
-        font-size: 16px;
-        cursor: pointer;
-      }
-    </style>
-  </head>
-  <body>
-    <h2>Разрешить сообщения от сообщества</h2>
-    <button onclick="allowMessages()">Разрешить</button>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Разрешить сообщения</title>
+</head>
+<body>
+    <!-- VK API -->
+    <script src="https://vk.com/js/api/openapi.js?169"></script>
 
-    <p id="status" style="margin-top: 20px; color: green"></p>
-
+    <!-- Виджет сообщений -->
+    <div id="vk_allow_messages_from_community"></div>
     <script>
-      vkBridge.send("VKWebAppInit");
-
-      function allowMessages() {
-        vkBridge
-          .send("VKWebAppAllowMessagesFromGroup", {
-            group_id: 230215539, // замените на ID вашего сообщества
-            key: "custom-key-optional", // можно опустить
-          })
-          .then((data) => {
-            if (data.result) {
-              alert("✅ Пользователь разрешил сообщения!");
-            }
-          })
-          .catch((error) => {
-            document.getElementById("status").textContent =
-              "❌ Ошибка: " + error.message;
-            console.error("Error:", error);
-          });
-      }
+        VK.Widgets.AllowMessagesFromCommunity('vk_allow_messages_from_community', {}, 230215539);
     </script>
-  </body>
+</body>
 </html>
